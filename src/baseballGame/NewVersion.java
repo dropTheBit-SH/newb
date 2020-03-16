@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class NewVersion {
+	
 	public static void main(String[] args) throws IOException {
 		
 //입력: com 난수 (3자리의 임의의 숫자를 만들어 com에 저장한다)

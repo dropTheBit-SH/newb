@@ -1,15 +1,15 @@
 package day04;
 
 public class StarDia {
-//	  *
-//	 ***
+//    *
+//   ***
 //  *****
 // *******
 //*********
 // *******
 //  *****
 //   ***
-//	  *
+//    *
 	
 	public static void main(String[] args) {
 		for(int i=0; i<5; i++){            // 5줄을 출력한다 (0 1 2 3 4) 

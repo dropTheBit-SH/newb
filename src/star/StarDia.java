@@ -1,6 +1,6 @@
 package day04;
 
-public class StarTree {
+public class StarDia {
 //	  *
 //	 ***
 //  *****

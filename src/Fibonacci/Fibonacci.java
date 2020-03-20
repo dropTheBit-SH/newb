@@ -31,13 +31,12 @@ public class Fibonacci {
 	}
 
 	static String test2() { // 1+1-2+3-5+8-13+21=14
-		total2 = cur + next;
 		for (int i = 1; i <= end; i++) {
 			cur = next;
 			next = pre + next;
 			pre = cur;
 
-			total2 = (i % 2 != 1) ? total2 + cur : total2 - cur;
+			total2 = (i == 1)? total2 + cur : (i % 2 != 1) ? total2 + cur : total2 - cur;
 			result2 += cur + ((i == end) ? "=" : (i % 2 == 1) ? "+" : "-");
 		}
 

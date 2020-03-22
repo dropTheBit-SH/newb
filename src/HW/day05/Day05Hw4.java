@@ -60,12 +60,13 @@ public class Day05Hw4 {
 				continue run;
 			}
 			user = Integer.parseInt(input);
-			
+					
 			/* - 유효성 검사: 범위 초과 */
 			while(!(user >= rangeS && user <= rangeE)) {
 				out.println("범위를 초과했습니다.");
 				out.printf("\n> 다시 입력(%d~%d 사이): ", rangeS, rangeE);
-				user = sc.nextInt();
+				input = sc.next();
+				user = Integer.parseInt(input);
 			}
 			
 			/* 값 비교  */

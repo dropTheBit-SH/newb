@@ -52,7 +52,14 @@ public class Day05Hw4 {
 		/* user값 입력 */
 		run: for (time=5; time >= 0; time--) {
 			out.printf("\n> 정답 입력(%d~%d 사이): ", rangeS, rangeE);
-			user = sc.nextInt();
+			input = sc.nextLine();
+			
+			/* - 유효성 검사: 숫자 입력*/
+			if(!input.matches("[0-9]+")) {
+				out.println("숫자만 입력해주세요");
+				continue run;
+			}
+			user = Integer.parseInt(input);
 			
 			/* - 유효성 검사: 범위 초과 */
 			while(!(user >= rangeS && user <= rangeE)) {

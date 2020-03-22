@@ -58,7 +58,7 @@ public class Day05Hw4upg {
 			/* - 유효성 검사: 범위 초과 */
 			check: do {
 				if(!input.matches("[0-9]+")) {
-					out.println("숫자만 입력해주세요");
+					out.println("숫자만 입력해주세요.");
 				}else {
 					user = Integer.parseInt(input);
 					if(!(user >= rangeS && user <= rangeE)) {

@@ -54,11 +54,11 @@ public class Day05Hw4 {
 			out.printf("\n> 정답 입력(%d~%d 사이): ", rangeS, rangeE);
 			input = sc.next();
 			
-			/* - 유효성 검사: 숫자 입력*/
-			if(!input.matches("[0-9]+")) {
-				out.println("숫자만 입력해주세요");
-				continue run;
-			}
+// 			/* - 유효성 검사: 숫자 입력*/
+// 			if(!input.matches("[0-9]+")) {
+// 				out.println("숫자만 입력해주세요");
+// 				continue run;
+// 			}
 			user = Integer.parseInt(input);
 					
 			/* - 유효성 검사: 범위 초과 */

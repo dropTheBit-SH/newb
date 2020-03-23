@@ -53,8 +53,8 @@ public class Day06Hw1 {
 		day = scan.nextInt();
 	
 		total = days[month-1] - day;
-		for(int i=1 ; i+month<=12; i++) {
-			total += days[i+month-1];
+		for(int i=1 ; month+i<=12; i++) {
+			total += days[month-1+i];
 		}
 		
 		System.out.printf("올해는 %d일 남았습니다.", total);

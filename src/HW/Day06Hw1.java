@@ -10,14 +10,7 @@ public class Day06Hw1 {
 	static int total = 0;
 	
 	public static void main(String[] args) {
-		// 월, 일을 입력 받고 월, 일의 100일 후를 출력하세요
-		// 월입력: 11 
-		// 일입력: 30
-		// >> 11월 30일의 100일 후는 3월 9일입니다
-		
-		/* 100-(n월의 일수-일)-n+1월의 일수 < 0
-		 * n+i가 12면 1부터 
-		 */
+		// 기준일로부터 n일 후 계산
 		int dDay = 0;
 		int rMonth= 0;
 		int rDay = 0;
@@ -52,12 +45,7 @@ public class Day06Hw1 {
 	}
 	
 	public static void test2(String[] args) {
-		//월, 일을 입력 받아서 1년의 남은 날짜를 계산 for-each 쓰지 말 것
-		
-		/* ex.
-		 * 10월  11 12 10번~10+1번
-		 * days[month]+days[x] 
-		 */
+		// 올해 남은 날 계산
 		
 		System.out.printf("월 입력: ");
 		month = scan.nextInt();
@@ -73,14 +61,4 @@ public class Day06Hw1 {
 		
 	}
 	
-	public static void test1(String[] args) {
-		//total에 days의 요소값을 저장해서 "1년은 365일입니다" 출력
-		
-		for(int d : days){
-			total += d;
-		}
-		System.out.printf("1년은 %d월입니다\n", days.length);
-		System.out.printf("1년은 %d일입니다\n", total);
-
-	}
 }

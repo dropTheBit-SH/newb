@@ -24,9 +24,12 @@ public class Chapter3 {
 		int[] ranNum = new int[input];
 		for(int i=0; i<ranNum.length; i++) {
 			ranNum[i] = (int)(Math.random()*3+1);
-			for(int j=0; j<i;) {
-				if(i!=0 && (ranNum[i] == ranNum[j])) i--;
-                                else j++;
+			for(int j=0; j<i; j++) {
+				if(i!=0 && (ranNum[i] == ranNum[j])){
+                                       i--;
+                                       break;
+                                }
+                           
 
 			}
 			System.out.print(ranNum[i]+"\t");

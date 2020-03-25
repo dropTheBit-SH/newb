@@ -3,6 +3,11 @@ package book;
 import java.util.*;
 
 public class Chapter3 {
+
+
+import java.util.*;
+
+public class Chapter3 {
 	static Scanner scan = new Scanner(System.in);
 	static int input = 0;
 	static String inputS = "";
@@ -23,17 +28,21 @@ public class Chapter3 {
 		input = scan.nextInt();
 		int[] ranNum = new int[input];
 		for(int i=0; i<ranNum.length; i++) {
-			ranNum[i] = (int)(Math.random()*3+1);
+			ranNum[i] = (int)(Math.random()*100+1);
 			for(int j=0; j<i; j++) {
 				if(i!=0 && (ranNum[i] == ranNum[j])){
                                        i--;
-                                       break;
                                 }
                            
 
 			}
-			System.out.print(ranNum[i]+"\t");
-		}
+		
+	}	
+		for(int i=0; i<ranNum.length; i++){
+					System.out.print(ranNum[i]+"\n");
+	}
+		
+		
 	}
 	public static void ch3_7() {
 		int sum = 0;

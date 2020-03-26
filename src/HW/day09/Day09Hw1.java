@@ -46,7 +46,9 @@ public class Day09Hw1 {
 	
 		int[] arr3 = test.joinArr(arr1, arr2); 
 		test.printArr(arr3);
-	
+		
+		System.out.println("------------------------------");	
+		
 		int[][] arr4 = test.mkArr(arr1, arr2);
 		test.printArr(arr4); 
 	}

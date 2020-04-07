@@ -36,7 +36,6 @@ public class c7_5 {
 			System.out.print("학생 이름>> ");
 			String name = scan.next();
 			if(name.equals("그만")) break;
-			Student std = stdMgmt.get(name);
 			if(stdMgmt.get(name).getName().equals(name)) {
 				System.out.println(stdMgmt.get(name).getName()+" "+stdMgmt.get(name).getMajor()+" "+stdMgmt.get(name).getNumber()+" "+stdMgmt.get(name).getGrade());
 			}

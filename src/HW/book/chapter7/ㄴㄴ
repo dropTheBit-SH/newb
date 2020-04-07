@@ -1,0 +1,37 @@
+package chapter7;
+
+interface IStack<T>{
+	T pop();
+	boolean push(T ob);
+}
+
+class MyStack implements IStack{
+
+	@Override
+	public Object pop() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean push(Object ob) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	
+}
+
+public class c7_9  {
+	public static void main(String[] args) {
+		IStack<Integer> stack = new MyStack<Integer>();
+		for(int i=0; i<10; i++) stack.push(i);
+		while(true) {
+			Integer n = stack.pop();
+			if(n == null) break;
+			System.out.println(n+" ");
+		}
+	}
+	
+	
+	
+}

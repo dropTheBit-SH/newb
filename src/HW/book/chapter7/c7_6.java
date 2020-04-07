@@ -14,7 +14,7 @@ public class c7_6 {
 		System.out.println("도시,경도,위도를 입력하세요.");
 		for(int i=0; i<location.length; i++) {
 			System.out.print(">> ");
-			String input = scan.nextLine();
+			String input = scan.next();
 			StringTokenizer st = new StringTokenizer(input, ",");
 			String city = st.nextToken();
 			int longititude = Integer.parseInt(st.nextToken());

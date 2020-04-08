@@ -3,7 +3,7 @@ package chapter7;
 import java.util.Scanner;
 import java.util.Vector;
 
-public class C7_10 {
+public class c7_10 {
 	static Scanner scan = new Scanner(System.in);
 	public static void main(String[] args) {
 		Vector<Shape> v = new Vector<Shape>();

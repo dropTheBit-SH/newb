@@ -22,6 +22,8 @@ public class MainApp extends MyFrame implements ActionListener {
 	Vector<String> operator = new Vector<>();
 	Vector<Double> number = new Vector<>();
 	boolean flag = false;
+	String labelTmp = "";
+	boolean flagCal = false;
 
 	public MainApp() {
 		panel.setBackground(new Color(51,51,51));
@@ -91,17 +93,23 @@ public class MainApp extends MyFrame implements ActionListener {
 	}
 	
 	private void play() {
-		for(int i=0; i<View.btnArr.length; i++)
+		for(int i=0; i<btnArr.length; i++)
 			btnArr[i].addActionListener(this);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		if(flagCal == true) {
+			reset();
+			flagCal = false;
+		}
+		
 		if(e.getSource() instanceof Button) {
 			Button btn = (Button) e.getSource();
 			String input = btn.getLabel();
 			textField.setText(textField.getText()+btn.getLabel());
-			
+			labelTmp += btn.getLabel();
+				
 			if(input.equals("C")) {
 				reset();
 				label.setText(null);
@@ -116,6 +124,8 @@ public class MainApp extends MyFrame implements ActionListener {
 					textField.setText(null);
 					flag = false;
 					calculation();
+					label.setText(labelTmp);
+					flagCal = true;
 				}
 				
 			}else if(input.equals("+")){
@@ -155,6 +165,7 @@ public class MainApp extends MyFrame implements ActionListener {
 
 	private void reset() {
 		tmp = "";
+		labelTmp ="";
 		flag = false;
 		number.clear();
 		operator.clear();

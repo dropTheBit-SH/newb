@@ -140,6 +140,10 @@ public class MainApp extends MyFrame implements ActionListener {
 			}else if(input.equals("/")){
 				inputOperator("/");
 				
+			}else if(input.equals(".")){
+				tmp += input;
+				flag = true;
+		
 			}else {
 				if(number.size() == 0) 		label.setText(null);
 				tmp += input;

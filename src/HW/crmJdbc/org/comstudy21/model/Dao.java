@@ -52,8 +52,6 @@ public class Dao {
 			pst.setString(1, dto.getName());
 			pst.setString(2, dto.getEmail());
 			pst.setString(3, dto.getPhone());
-			if(pst.executeUpdate() > 0) System.out.println("성공"); // 처리한개수
-			else System.out.println("실패");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -65,32 +63,4 @@ public class Dao {
 				try {con.close();} catch (SQLException e) {e.printStackTrace();}
 		}
 	}
-	
-//	public void insert(Member dto) {
-//		JSONObject rootObject = getJsonObject();
-//		int seq = rootObject.getInt("seq");
-//		JSONArray array = rootObject.getJSONArray("members");
-//		
-//		JSONObject obj = new JSONObject();
-//		obj.put("no", seq++);
-//		obj.put("name", dto.getName());
-//		obj.put("email", dto.getEmail());
-//		obj.put("phone", dto.getPhone());
-//		array.put(obj);
-//		
-//		rootObject.put("seq", seq);
-//		
-//		try {
-//			File file = new File(filepath);
-//			writer = new FileWriter(file);
-//			writer.write(rootObject.toString(2));
-//			
-//			if(reader != null) reader.close();
-//			if(writer != null) writer.close();
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-//		
-//	}
-
 }

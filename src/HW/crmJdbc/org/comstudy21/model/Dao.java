@@ -9,14 +9,14 @@ import java.util.Vector;
 import jdbc.util.jdbcUtil;
 
 public class Dao {
-	
+	Connection con = jdbcUtil.getConnection();
 	Statement stm = null;
 	PreparedStatement pst = null;
 	ResultSet rst = null;
 	String sql = "";
 	
 	public Vector<Vector> selectAll() {
-		Connection con = jdbcUtil.getConnection();
+		con = jdbcUtil.getConnection();
 		Vector<Vector> all = new Vector<Vector>();
 		try {
 			sql = "SELECT * FROM MEMBERS";
@@ -34,18 +34,13 @@ public class Dao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			if(rst != null)
-				try {rst.close();} catch (SQLException e) {e.printStackTrace();}
-			if(stm != null)
-				try {stm.close();} catch (SQLException e) {e.printStackTrace();}
-			if(con != null)
-				try {con.close();} catch (SQLException e) {e.printStackTrace();}
+			close();
 		}
 		return all;
 	}
 	
 	public void insert(Member dto) {
-		Connection con = jdbcUtil.getConnection();
+		con = jdbcUtil.getConnection();
 		try {
 			sql = "INSERT INTO MEMBERS(name, email, phone) values(?,?,?)";
 			pst = con.prepareStatement(sql);
@@ -55,12 +50,16 @@ public class Dao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			if(pst != null)
-				try {pst.close();} catch (SQLException e) {e.printStackTrace();}
-			if(stm != null)
-				try {stm.close();} catch (SQLException e) {e.printStackTrace();}
-			if(con != null)
-				try {con.close();} catch (SQLException e) {e.printStackTrace();}
+			close();
 		}
+	}
+	
+	public void close(){
+		if(pst != null)
+			try {pst.close();} catch (SQLException e) {e.printStackTrace();}
+		if(stm != null)
+			try {stm.close();} catch (SQLException e) {e.printStackTrace();}
+		if(con != null)
+			try {con.close();} catch (SQLException e) {e.printStackTrace();}
 	}
 }

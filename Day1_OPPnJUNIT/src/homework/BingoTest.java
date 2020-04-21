@@ -8,29 +8,24 @@ public class BingoTest {
 	int bingoCheck(int[][] arr) {
 		int cnt = 0;
 		
-		// (가로)같은 배열, 다른 순서 -> 값들이 같음 -> 빙고
+		// (가로)같은 배열, 다른 순서 -> 값1 -> 빙고
 		for(int i=0; i<arr.length; i++){
 			for(int j=0; j<arr[i].length; j++){
 				if(arr[i][j]!=1) break;
 				else if(j==arr[i].length-1) cnt++;
-				
 			}
-		}
-		// (세로)다른 배열, 같은 순서 -> 값들이 같음 -> 빙고
-		for(int i=0; i<arr.length; i++){
+		// (세로)다른 배열, 같은 순서 -> 값1 -> 빙고
 			for(int j=0; j<arr[i].length; j++){
 				if(arr[j][i]!=1) break;
 				else if(j==arr[i].length-1) cnt++;
 			}
-		}
-		// (대각선)배열과 순서의 숫자가 같음 -> 값들이 같음 -> 빙고
-		for(int i=0; i<arr.length; i++){
+		// (대각선)배열과 순서의 숫자가 같음 -> 값1 -> 빙고
 			for(int j=0; j<arr[i].length; j++){
 				if(i==j && arr[i][j]!=1) break;
 				else if(i==j && i==arr.length-1) cnt++;
 			}
 		}
-		// (역대각선)배열과 순서를 합하여 길이가 됨 -> 값들이 같음 -> 빙고
+		// (역대각선)배열과 순서를 합하여 길이가 됨 -> 값1 -> 빙고
 		thisLine : for(int i=0; i<arr.length; i++){
 			for(int j=0; j<arr[i].length; j++){
 				if(i+j==arr.length-1 && arr[i][j]!=1) break thisLine;

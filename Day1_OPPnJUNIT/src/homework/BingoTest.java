@@ -8,7 +8,7 @@ public class BingoTest {
 	int bingoCheck(int[][] arr) {
 		int cnt = 0;
 		
-		// 같은 배열, 다른 순서 -> 값들이 같음 -> 빙고
+		// (가로)같은 배열, 다른 순서 -> 값들이 같음 -> 빙고
 		for(int i=0; i<arr.length; i++){
 			for(int j=0; j<arr[i].length; j++){
 				if(arr[i][j]!=1) break;
@@ -16,7 +16,7 @@ public class BingoTest {
 				
 			}
 		}
-		// 다른 배열, 같은 순서 -> 값들이 같음 -> 빙고
+		// (세로)다른 배열, 같은 순서 -> 값들이 같음 -> 빙고
 		for(int i=0; i<arr.length; i++){
 			for(int j=0; j<arr[i].length; j++){
 				if(arr[j][i]!=1) break;
@@ -31,9 +31,9 @@ public class BingoTest {
 			}
 		}
 		// (역대각선)배열과 순서를 합하여 길이가 됨 -> 값들이 같음 -> 빙고
-		A: for(int i=0; i<arr.length; i++){
+		thisLine : for(int i=0; i<arr.length; i++){
 			for(int j=0; j<arr[i].length; j++){
-				if(i+j==arr.length-1 && arr[i][j]!=1) break A;
+				if(i+j==arr.length-1 && arr[i][j]!=1) break thisLine;
 				else if(i+j==arr.length-1 && i==arr.length-1) cnt++;
 			}
 		}

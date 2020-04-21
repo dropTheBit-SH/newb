@@ -24,76 +24,16 @@ public class BingoTest {
 		// (대각선)배열과 순서의 숫자가 같음 -> 값들이 같음 -> 빙고
 		for(int i=0; i<arr.length; i++){
 			for(int j=0; j<arr[i].length; j++){
-				if(i==j){
-					if(arr[i][j]!=1) break;
-					else if(i==arr.length-1) cnt++;
-				}
+				if(i==j && arr[i][j]!=1) break;
+				else if(i==j && i==arr.length-1) cnt++;
 			}
 		}
 		// (역대각선)배열과 순서를 합하여 길이가 됨 -> 값들이 같음 -> 빙고
 		A: for(int i=0; i<arr.length; i++){
 			for(int j=0; j<arr[i].length; j++){
-				if(i+j==arr.length-1){
-					if(arr[i][j]!=1) break A;
-					else if(i==arr.length-1) cnt++;
-				}
+				if(i+j==arr.length-1 && arr[i][j]!=1) break A;
+				else if(i+j==arr.length-1 && i==arr.length-1) cnt++;
 			}
 		}
 		return cnt;
-	}
-
-	@Test
-	public void test5() {
-		int[][] arr = { 
-				{ 1, 1, 1, 1, 1 }, 
-				{ 1, 1, 0, 1, 0 }, 
-				{ 1, 0, 1, 0, 0 }, 
-				{ 1, 1, 0, 1, 0 },
-				{ 1, 0, 0, 0, 1 }, };
-		assertTrue(bingoCheck(arr) == 4);
-	}
-	
-	@Test
-	public void test4() {
-		int[][] arr = { 
-				{ 1, 1, 1, 1, 1 }, 
-				{ 1, 1, 0, 0, 0 }, 
-				{ 1, 0, 1, 0, 0 }, 
-				{ 1, 0, 0, 1, 0 },
-				{ 1, 0, 0, 0, 1 }, };
-		assertTrue(bingoCheck(arr) == 3);
-	}
-
-	@Test
-	public void test3() {
-		int[][] arr = { 
-				{ 1, 1, 1, 1, 1 }, 
-				{ 1, 0, 0, 0, 0 }, 
-				{ 1, 0, 0, 0, 0 }, 
-				{ 1, 0, 0, 0, 0 },
-				{ 1, 0, 0, 0, 0 }, };
-		assertTrue(bingoCheck(arr) == 2);
-	}
-
-	@Test
-	public void test2() {
-		int[][] arr = { 
-				{ 1, 1, 1, 1, 1 }, 
-				{ 0, 0, 0, 0, 0 }, 
-				{ 0, 0, 0, 0, 0 }, 
-				{ 0, 0, 0, 0, 0 },
-				{ 0, 0, 0, 0, 0 }, };
-		assertTrue(bingoCheck(arr) == 1);
-	}
-
-	@Test
-	public void test() {
-		int[][] arr = { 
-				{ 1, 1, 1, 1, 1 }, 
-				{ 1, 1, 1, 1, 1 }, 
-				{ 1, 1, 1, 1, 1 }, 
-				{ 1, 1, 1, 1, 1 },
-				{ 1, 1, 1, 1, 1 }, };
-		assertTrue(bingoCheck(arr) == 12);
-	}
 }

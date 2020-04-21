@@ -1,3 +1,5 @@
+package homework;
+
 import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
@@ -36,4 +38,60 @@ public class BingoTest {
 			}
 		}
 		return cnt;
+	}
+
+	@Test
+	public void test5() {
+		int[][] arr = { 
+				{ 1, 1, 1, 1, 1 }, 
+				{ 1, 1, 0, 1, 0 }, 
+				{ 1, 0, 1, 0, 0 }, 
+				{ 1, 1, 0, 1, 0 },
+				{ 1, 0, 0, 0, 1 }, };
+		assertTrue(bingoCheck(arr) == 4);
+	}
+	
+	@Test
+	public void test4() {
+		int[][] arr = { 
+				{ 1, 1, 1, 1, 1 }, 
+				{ 1, 1, 0, 0, 0 }, 
+				{ 1, 0, 1, 0, 0 }, 
+				{ 1, 0, 0, 1, 0 },
+				{ 1, 0, 0, 0, 1 }, };
+		assertTrue(bingoCheck(arr) == 3);
+	}
+
+	@Test
+	public void test3() {
+		int[][] arr = { 
+				{ 1, 1, 1, 1, 1 }, 
+				{ 1, 0, 0, 0, 0 }, 
+				{ 1, 0, 0, 0, 0 }, 
+				{ 1, 0, 0, 0, 0 },
+				{ 1, 0, 0, 0, 0 }, };
+		assertTrue(bingoCheck(arr) == 2);
+	}
+
+	@Test
+	public void test2() {
+		int[][] arr = { 
+				{ 1, 1, 1, 1, 1 }, 
+				{ 0, 0, 0, 0, 0 }, 
+				{ 0, 0, 0, 0, 0 }, 
+				{ 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0 }, };
+		assertTrue(bingoCheck(arr) == 1);
+	}
+
+	@Test
+	public void test() {
+		int[][] arr = { 
+				{ 1, 1, 1, 1, 1 }, 
+				{ 1, 1, 1, 1, 1 }, 
+				{ 1, 1, 1, 1, 1 }, 
+				{ 1, 1, 1, 1, 1 },
+				{ 1, 1, 1, 1, 1 }, };
+		assertTrue(bingoCheck(arr) == 12);
+	}
 }

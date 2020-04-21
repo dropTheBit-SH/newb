@@ -1,5 +1,3 @@
-package homework;
-
 import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
@@ -11,36 +9,24 @@ public class BingoTest {
 		// 같은 배열, 다른 순서 -> 값들이 같음 -> 빙고
 		for(int i=0; i<arr.length; i++){
 			for(int j=0; j<arr[i].length; j++){
-				if(arr[i][j]!=1)
-					break;
-				else{
-					if(j==arr[i].length-1)
-						cnt++;
-				}
+				if(arr[i][j]!=1) break;
+				else if(j==arr[i].length-1) cnt++;
+				
 			}
 		}
 		// 다른 배열, 같은 순서 -> 값들이 같음 -> 빙고
 		for(int i=0; i<arr.length; i++){
 			for(int j=0; j<arr[i].length; j++){
-				if(arr[j][i]!=1)
-					break;
-				
-				else{
-					if(j==arr[i].length-1)
-						cnt++;
-				}
+				if(arr[j][i]!=1) break;
+				else if(j==arr[i].length-1) cnt++;
 			}
 		}
 		// (대각선)배열과 순서의 숫자가 같음 -> 값들이 같음 -> 빙고
 		for(int i=0; i<arr.length; i++){
 			for(int j=0; j<arr[i].length; j++){
 				if(i==j){
-					if(arr[i][j]!=1)
-						break;
-					else{
-						if(i==arr.length-1)
-							cnt++;
-					}
+					if(arr[i][j]!=1) break;
+					else if(i==arr.length-1) cnt++;
 				}
 			}
 		}
@@ -48,12 +34,8 @@ public class BingoTest {
 		A: for(int i=0; i<arr.length; i++){
 			for(int j=0; j<arr[i].length; j++){
 				if(i+j==arr.length-1){
-					if(arr[i][j]!=1)
-						break A;
-					else{
-						if(i==arr.length-1)
-							cnt++;
-					}
+					if(arr[i][j]!=1) break A;
+					else if(i==arr.length-1) cnt++;
 				}
 			}
 		}

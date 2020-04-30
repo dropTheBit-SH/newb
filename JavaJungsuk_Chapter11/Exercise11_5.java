@@ -1,4 +1,4 @@
-package chapter11;
+package ch11;
 
 //[11-5] 다음에 제시된 Student클래스가 Comparable인터페이스를 구현하도록 변경해서
 //이름(name)이 기본 정렬기준이 되도록 하시오.

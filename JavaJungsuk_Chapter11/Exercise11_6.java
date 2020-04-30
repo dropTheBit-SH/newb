@@ -1,4 +1,4 @@
-package chapter11;
+package ch11;
 
 //[11-6] 다음의 코드는 성적평균의 범위별로 학생 수를 세기 위한 것이다. 
 //TreeSet이 학생들의 평균을 기준으로 정렬하도록 compare(Object o1, Object o2)와 

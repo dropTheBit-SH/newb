@@ -1,4 +1,4 @@
-package chapter11;
+package ch11;
 
 //[11-8] 문제11-7의 Student클래스에 총점(total)과 전교등수(schoolRank)를 저장하기 위한 인스턴스변수를 추가하였다. 
 //Student클래스의 기본정렬을 이름(name)이 아닌 총점 (total)을 기준으로 한 내림차순으로 변경한 다음, 
@@ -57,33 +57,20 @@ class Exercise11_8 {
 		int prevRank = -1; // 이전 전교등수
 		int prevTotal = -1; // 이전 총점
 		int length = list.size();
-		boolean flag = false;
-		
 		//1. 반복문을 이용해서 list에 저장된 Student객체를 하나씩 읽는다.
 		for(int i=0; i<length; i++){
 			if(list.get(i) instanceof Student2){
-				Student2 tmp = (Student2) list.get(i);
-				//1.1 1등을 정한다
-				if(prevTotal == -1){
-					tmp.schoolRank = 1;
-				}else{
-					//1.1 총점(total)이 이전총점(prevTotal)과 같으면 이전 등수(prevRank)를 등수(schoolRank)로 한다. 
-					if(tmp.getTotal() == prevTotal){
-						tmp.schoolRank = prevRank;
-						flag = true;
-					//1.2 총점이 서로 다르면, 등수(schoolRank)의 값을 알맞게 계산해서 저장한다. 
-					//이전에 동점자였다면, 그 다음 등수는 동점자의 수를 고려해야 한다. (실행결과 참고) 
-					}else{
-						tmp.schoolRank = ++prevRank;
-					}
-				}
+				Student2 std = (Student2) list.get(i);
+				//1.1 총점(total)이 이전총점(prevTotal)과 같으면 이전 등수(prevRank)를 등수(schoolRank)로 한다. 
+				if(std.total == prevTotal)
+					std.schoolRank = prevRank;
+				//1.2 총점이 서로 다르면, 등수(schoolRank)의 값을 알맞게 계산해서 저장한다. 
+				//이전에 동점자였다면, 그 다음 등수는 동점자의 수를 고려해야 한다. (실행결과 참고) 
+				else
+					std.schoolRank = i+1;
 				//1.3 현재 총점과 등수를 이전총점(prevTotal)과 이전등수(prevRank)에 저장한다.
-				prevRank = tmp.schoolRank;
-				prevTotal = tmp.total;
-				if(flag){
-					prevRank++;
-					flag = false;
-				}
+				prevRank = std.schoolRank;
+				prevTotal = std.total;
 			}
 		}
 	}
@@ -95,6 +82,11 @@ class Exercise11_8 {
 		list.add(new Student2("홍길동", 1, 3, 100, 100, 100));
 		list.add(new Student2("남궁성", 1, 1, 90, 70, 80));
 		list.add(new Student2("김자바", 1, 2, 80, 80, 90));
+		list.add(new Student2("육자바", 3, 1, 70, 90, 70));
+		list.add(new Student2("칠자바", 3, 2, 70, 90, 70));
+		list.add(new Student2("팔자바", 3, 3, 70, 90, 70));
+		list.add(new Student2("구자바", 3, 4, 0, 0, 0));
+		list.add(new Student2("십자바", 3, 5, 80, 80, 90));
 		calculateSchoolRank(list);
 		Iterator it = list.iterator();
 		while (it.hasNext())

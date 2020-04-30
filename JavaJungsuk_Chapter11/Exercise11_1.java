@@ -1,4 +1,4 @@
-package chapter11;
+package ch11;
 //[11-1] 다음은 정수집합 1,2,3,4와 3,4,5,6의 교집합, 차집합, 합집합을 구하는 코드이다. 
 //코드를 완성하여 실행결과와 같은 결과를 출력하시오.
 //[Hint] ArrayList클래스의 addAll(), removeAll(), retainAll()을 사용하라.

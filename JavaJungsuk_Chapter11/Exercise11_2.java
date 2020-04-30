@@ -1,4 +1,4 @@
-package chapter11;
+package ch11;
 //[11-2] 다음 코드의 실행결과를 적으시오.
 import java.util.*;
 

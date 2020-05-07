@@ -1,0 +1,15 @@
+addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent we) {
+				System.exit(0);
+			}
+		});
+
+
+String str = new String(chArr)
+
+
+String[] argArr = input.split(" +");
+
+
+File file = new File(System.getProperty("user.dir"));
+new

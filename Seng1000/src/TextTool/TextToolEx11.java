@@ -1,11 +1,12 @@
 package TextTool;
 
-//[ë¬¸ì œ11] TextAreaì˜ ë°ì´í„°ë¥¼ ë¼ì¸ë³„ë¡œ ì½ì–´ì„œ param1ì— ì…ë ¥ëœ í˜•ì‹ì—ì„œ ë°ì´í„°ë¥¼ ë½‘ì•„ë‚´ì„œ ë³´ì—¬ì£¼ëŠ” 'íŒ¨í„´ì œê±°'ë²„íŠ¼ì„ êµ¬í˜„í•˜ì„¸ìš”.
+//[¹®Á¦11] TextAreaÀÇ µ¥ÀÌÅÍ¸¦ ¶óÀÎº°·Î ÀĞ¾î¼­ param1¿¡ ÀÔ·ÂµÈ Çü½Ä¿¡¼­ µ¥ÀÌÅÍ¸¦ »Ì¾Æ³»¼­ º¸¿©ÁÖ´Â 'ÆĞÅÏÁ¦°Å'¹öÆ°À» ±¸ÇöÇÏ¼¼¿ä.
 
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
 import java.util.*;
-import java.util.regex.*; // Pattern, Matcherí´ë˜ìŠ¤ë¥¼ ì‚¬ìš©í•˜ê¸° ìœ„í•´ ì¶”ê°€
+import java.util.regex.*; // Pattern, MatcherÅ¬·¡½º¸¦ »ç¿ëÇÏ±â À§ÇØ Ãß°¡
 import java.text.*;
 
 public class TextToolEx11 extends Frame implements WindowListener {
@@ -14,32 +15,32 @@ public class TextToolEx11 extends Frame implements WindowListener {
 	Panel pNorth, pSouth;
 	Label lb1, lb2;
 
-	String[] btnName = { "Undo", // ì‘ì—…ì´ì „ ìƒíƒœë¡œ ë˜ëŒë¦¼
-			"ì§ìˆ˜ì¤„ì‚­ì œ", // ì§ìˆ˜ì¤„ì„ ì‚­ì œí•˜ëŠ” ê¸°ëŠ¥
-			"ë¬¸ìì‚­ì œ", // Param1ì— ì§€ì •ëœ ë¬¸ìë“¤ì„ ì‚­ì œí•˜ëŠ” ê¸°ëŠ¥
-			"trim", // ë¼ì¸ì˜ ì•ë’¤ ê³µë°±ì„ ì œê±°
-			"ë¹ˆì¤„ì‚­ì œ", // ë¹ˆ ì¤„ ì‚­ì œ
-			"ì ‘ë‘ì‚¬ì¶”ê°€", // Param1ê³¼ Param2ì˜ ë¬¸ìì—´ì„ ê° ë¼ì¸ì˜ ì•ë’¤ì— ë¶™ì´ëŠ” ê¸°ëŠ¥
-			"substring", // Param1ê³¼ Param2ì— ì§€ì •ëœ ë¬¸ìì—´ì„ ê° ë¼ì¸ì—ì„œ ì œê±°í•˜ëŠ” ê¸°ëŠ¥
-			"substring2", // Param1ê³¼ Param2ì— ì§€ì •ëœ ë¬¸ìì—´ë¡œ ë‘˜ëŸ¬ì‹¸ì¸ ë¶€ë¶„ì„ ë‚¨ê¸°ê³  ì œê±°í•˜ëŠ” ê¸°ëŠ¥
-			"distinct", // ì¤‘ë³µê°’ì œê±°í•œ í›„ ì •ë ¬í•´ì„œ ë³´ì—¬ì£¼ê¸°
-			"distinct2", // ì¤‘ë³µê°’ì œê±°í•œ í›„ ì •ë ¬í•´ì„œ ë³´ì—¬ì£¼ê¸° - ì¤‘ë³µì¹´ìš´íŠ¸ í¬í•¨
-			"íŒ¨í„´ì ìš©", // ë°ì´í„°ì— ì§€ì •ëœ íŒ¨í„´ ì ìš©í•˜ê¸°
-			"íŒ¨í„´ì œê±°", // ë°ì´í„°ì— ì ìš©ëœ íŒ¨í„´ ì œê±°í•˜ê¸°
+	String[] btnName = { "Undo", // ÀÛ¾÷ÀÌÀü »óÅÂ·Î µÇµ¹¸²
+			"Â¦¼öÁÙ»èÁ¦", // Â¦¼öÁÙÀ» »èÁ¦ÇÏ´Â ±â´É
+			"¹®ÀÚ»èÁ¦", // Param1¿¡ ÁöÁ¤µÈ ¹®ÀÚµéÀ» »èÁ¦ÇÏ´Â ±â´É
+			"trim", // ¶óÀÎÀÇ ¾ÕµÚ °ø¹éÀ» Á¦°Å
+			"ºóÁÙ»èÁ¦", // ºó ÁÙ »èÁ¦
+			"Á¢µÎ»çÃß°¡", // Param1°ú Param2ÀÇ ¹®ÀÚ¿­À» °¢ ¶óÀÎÀÇ ¾ÕµÚ¿¡ ºÙÀÌ´Â ±â´É
+			"substring", // Param1°ú Param2¿¡ ÁöÁ¤µÈ ¹®ÀÚ¿­À» °¢ ¶óÀÎ¿¡¼­ Á¦°ÅÇÏ´Â ±â´É
+			"substring2", // Param1°ú Param2¿¡ ÁöÁ¤µÈ ¹®ÀÚ¿­·Î µÑ·¯½ÎÀÎ ºÎºĞÀ» ³²±â°í Á¦°ÅÇÏ´Â ±â´É
+			"distinct", // Áßº¹°ªÁ¦°ÅÇÑ ÈÄ Á¤·ÄÇØ¼­ º¸¿©ÁÖ±â
+			"distinct2", // Áßº¹°ªÁ¦°ÅÇÑ ÈÄ Á¤·ÄÇØ¼­ º¸¿©ÁÖ±â - Áßº¹Ä«¿îÆ® Æ÷ÇÔ
+			"ÆĞÅÏÀû¿ë", // µ¥ÀÌÅÍ¿¡ ÁöÁ¤µÈ ÆĞÅÏ Àû¿ëÇÏ±â
+			"ÆĞÅÏÁ¦°Å", // µ¥ÀÌÅÍ¿¡ Àû¿ëµÈ ÆĞÅÏ Á¦°ÅÇÏ±â
 	};
 
 	Button[] btn = new Button[btnName.length];
 
-	private final String CR_LF = System.getProperty("line.separator"); // ì¤„ë°”ê¿ˆë¬¸ì
+	private final String CR_LF = System.getProperty("line.separator"); // ÁÙ¹Ù²Ş¹®ÀÚ
 
 	private String prevText = "";
 
 	private void registerEventHandler() {
 		addWindowListener(this);
 
-		int n = 0; // ë²„íŠ¼ìˆœì„œ
+		int n = 0; // ¹öÆ°¼ø¼­
 
-		btn[n++].addActionListener(new ActionListener() { // Undo - ì‘ì—…ì´ì „ ìƒíƒœë¡œ ë˜ëŒë¦¼
+		btn[n++].addActionListener(new ActionListener() { // Undo - ÀÛ¾÷ÀÌÀü »óÅÂ·Î µÇµ¹¸²
 			public void actionPerformed(ActionEvent ae) {
 				String curText = ta.getText();
 
@@ -51,77 +52,70 @@ public class TextToolEx11 extends Frame implements WindowListener {
 			}
 		});
 
-		btn[n++].addActionListener(new ActionListener() { // ì§ìˆ˜ì¤„ì‚­ì œ - ì§ìˆ˜ì¤„ì„ ì‚­ì œí•˜ëŠ”
-															// ê¸°ëŠ¥
+		btn[n++].addActionListener(new ActionListener() { // Â¦¼öÁÙ»èÁ¦ - Â¦¼öÁÙÀ» »èÁ¦ÇÏ´Â ±â´É
 			public void actionPerformed(ActionEvent ae) {
-				/* ë‚´ìš© ìƒëµ */
+				/* ³»¿ë »ı·« */
 
 			}
 		});
 
-		btn[n++].addActionListener(new ActionListener() { // ë¬¸ìì‚­ì œ - Param1ì— ì§€ì •ëœ
-															// ë¬¸ìë¥¼ ì‚­ì œí•˜ëŠ” ê¸°ëŠ¥
+		btn[n++].addActionListener(new ActionListener() { // ¹®ÀÚ»èÁ¦ - Param1¿¡ ÁöÁ¤µÈ ¹®ÀÚ¸¦ »èÁ¦ÇÏ´Â ±â´É
 			public void actionPerformed(ActionEvent ae) {
-				/* ë‚´ìš© ìƒëµ */
+				/* ³»¿ë »ı·« */
 
 			}
 		});
 
-		btn[n++].addActionListener(new ActionListener() { // trim - ë¼ì¸ì˜ ì¢Œìš°ê³µë°±ì„
-															// ì œê±°í•˜ëŠ” ê¸°ëŠ¥
+		btn[n++].addActionListener(new ActionListener() { // trim - ¶óÀÎÀÇ ÁÂ¿ì°ø¹éÀ» Á¦°ÅÇÏ´Â ±â´É
 			public void actionPerformed(ActionEvent ae) {
-				/* ë‚´ìš© ìƒëµ */
+				/* ³»¿ë »ı·« */
 
 			}
 		});
 
-		btn[n++].addActionListener(new ActionListener() { // ë¹ˆì¤„ì‚­ì œ - ë¹ˆ ì¤„ ì‚­ì œ
+		btn[n++].addActionListener(new ActionListener() { // ºóÁÙ»èÁ¦ - ºó ÁÙ »èÁ¦
 			public void actionPerformed(ActionEvent ae) {
-				/* ë‚´ìš© ìƒëµ */
+				/* ³»¿ë »ı·« */
 
 			}
 		});
 
-		btn[n++].addActionListener(new ActionListener() { // ì ‘ë‘ì‚¬ - ê° ë¼ì¸ì— ì ‘ë‘ì‚¬,
-															// ì ‘ë¯¸ì‚¬ ë¶™ì´ê¸°
+		btn[n++].addActionListener(new ActionListener() { // Á¢µÎ»ç - °¢ ¶óÀÎ¿¡ Á¢µÎ»ç, Á¢¹Ì»ç ºÙÀÌ±â
 			public void actionPerformed(ActionEvent ae) {
-				/* ë‚´ìš© ìƒëµ */
+				/* ³»¿ë »ı·« */
 
 			}
 		});
 
-		btn[n++].addActionListener(new ActionListener() { // substring - ë¬¸ìì—´ ìë¥´ê¸°
+		btn[n++].addActionListener(new ActionListener() { // substring - ¹®ÀÚ¿­ ÀÚ¸£±â
 			public void actionPerformed(ActionEvent ae) {
-				/* ë‚´ìš© ìƒëµ */
+				/* ³»¿ë »ı·« */
 
 			}
 		});
 
-		btn[n++].addActionListener(new ActionListener() { // substring2 - ì§€ì •ëœ
-															// ë¬¸ìë¥¼ ì°¾ì•„ì„œ ê·¸ ìœ„ì¹˜ê¹Œì§€
-															// ì˜ë¼ë‚´ê¸°
+		btn[n++].addActionListener(new ActionListener() { // substring2 - ÁöÁ¤µÈ ¹®ÀÚ¸¦ Ã£¾Æ¼­ ±× À§Ä¡±îÁö Àß¶ó³»±â
 			public void actionPerformed(ActionEvent ae) {
-				/* ë‚´ìš© ìƒëµ */
+				/* ³»¿ë »ı·« */
 
 			}
 		});
 
-		btn[n++].addActionListener(new ActionListener() { // distinct - ì¤‘ë³µ ë¼ì¸ ì œê±°
+		btn[n++].addActionListener(new ActionListener() { // distinct - Áßº¹ ¶óÀÎ Á¦°Å
 			public void actionPerformed(ActionEvent ae) {
-				/* ë‚´ìš© ìƒëµ */
+				/* ³»¿ë »ı·« */
 
 			}
 		});
 
-		btn[n++].addActionListener(new ActionListener() { // distinct2 - ì¤‘ë³µ ë¼ì¸
-															// ì œê±° + ì¹´ìš´íŠ¸
+		btn[n++].addActionListener(new ActionListener() { // distinct2 - Áßº¹ ¶óÀÎ Á¦°Å + Ä«¿îÆ®
 			public void actionPerformed(ActionEvent ae) {
-				/* ë‚´ìš© ìƒëµ */
+				/* ³»¿ë »ı·« */
 
 			}
 		});
 
-		btn[n++].addActionListener(new ActionListener() { // íŒ¨í„´ì ìš©
+		btn[n++].addActionListener(new ActionListener() { // ÆĞÅÏÀû¿ë
 			public void actionPerformed(ActionEvent ae) {
 				String curText = ta.getText();
 				StringBuffer sb = new StringBuffer(curText.length());
@@ -149,9 +143,9 @@ public class TextToolEx11 extends Frame implements WindowListener {
 			}
 		});
 
-		btn[n++].addActionListener(new ActionListener() { // íŒ¨í„´ì œê±°
+		btn[n++].addActionListener(new ActionListener() { // ÆĞÅÏÁ¦°Å
 			public void actionPerformed(ActionEvent ae) {
-								String curText = ta.getText();
+				String curText = ta.getText();
 				StringBuffer sb = new StringBuffer(curText.length());
 
 				prevText = curText;
@@ -164,17 +158,16 @@ public class TextToolEx11 extends Frame implements WindowListener {
 				if (delimiter.length() == 0)
 					delimiter = ",";
 
-				// * 1. Scannerí´ë˜ìŠ¤ì™€ ë°˜ë³µë¬¸ì„ ì´ìš©í•´ì„œ curTextë¥¼ ë¼ì¸ë‹¨ìœ„ë¡œ ì½ëŠ”ë‹¤.
+				// * 1. ScannerÅ¬·¡½º¿Í ¹İº¹¹®À» ÀÌ¿ëÇØ¼­ curText¸¦ ¶óÀÎ´ÜÀ§·Î ÀĞ´Â´Ù.
 				Scanner s = new Scanner(curText);
 				while(s.hasNextLine()){
 					String line = s.nextLine();
-					// * 2. ê° ë¼ì¸ì„ patternì— ë§ê²Œ ë§¤ì¹­ì‹œí‚¨ë‹¤.(Patterní´ë˜ìŠ¤ì˜ matcher()ì‚¬ìš©)
-					Matcher m = p.matcher(line);
-					line = line.replace
-					// * 3. patternì— ë§¤ì¹­ë˜ëŠ” ë°ì´í„°ë¥¼ êµ¬ë¶„ìì™€ í•¨ê»˜ sbì— ì €ì¥í•œë‹¤.
-					sb.append(line);
+					// * 2. °¢ ¶óÀÎÀ» pattern¿¡ ¸Â°Ô ¸ÅÄª½ÃÅ²´Ù.(PatternÅ¬·¡½ºÀÇ matcher()»ç¿ë)
+					p.matcher(line);
+					// * 3. pattern¿¡ ¸ÅÄªµÇ´Â µ¥ÀÌÅÍ¸¦ ±¸ºĞÀÚ¿Í ÇÔ²² sb¿¡ ÀúÀåÇÑ´Ù.
+					sb.append(line).append(CR_LF);
 				}
-				// * 4. sbì˜ ë‚´ìš©ì„ TextAreaì— ë³´ì—¬ì¤€ë‹¤.
+				// * 4. sbÀÇ ³»¿ëÀ» TextArea¿¡ º¸¿©ÁØ´Ù.
 				ta.setText(sb.toString());
 			}
 		});
@@ -209,7 +202,7 @@ public class TextToolEx11 extends Frame implements WindowListener {
 
 		pSouth.setLayout(new GridLayout(2, 10));
 
-		for (int i = 0; i < btn.length; i++) { // ë²„íŠ¼ë°°ì—´ì„ í•˜ë‹¨ Panelì— ë„£ëŠ”ë‹¤.
+		for (int i = 0; i < btn.length; i++) { // ¹öÆ°¹è¿­À» ÇÏ´Ü Panel¿¡ ³Ö´Â´Ù.
 			pSouth.add(btn[i]);
 		}
 

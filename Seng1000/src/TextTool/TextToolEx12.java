@@ -12,12 +12,13 @@ package TextTool;
 //6. '클립보드복사'버튼 - TextArea의 내용을 클립보드로 복사하는 기능
 //7. 메뉴를 달아서 파일을 열고 저장하는 기능
 
-//[문제11] TextArea의 데이터를 라인별로 읽어서 param1에 입력된 형식에서 데이터를 뽑아내서 보여주는 '패턴제거'버튼을 구현하세요.
-
 import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
 import java.util.regex.*; // Pattern, Matcher클래스를 사용하기 위해 추가
+
+import sun.net.www.content.image.png;
+
 import java.text.*;
 
 public class TextToolEx12 extends Frame implements WindowListener {
@@ -26,6 +27,15 @@ public class TextToolEx12 extends Frame implements WindowListener {
 	Panel pNorth, pSouth;
 	Label lb1, lb2;
 	Checkbox option;
+	MenuBar mb;
+	Menu mFile;
+	Menu mCopy;
+	Menu mView;
+	Menu mHelp;
+	MenuItem mNew;
+	MenuItem mOpen;
+	MenuItem mExit;
+	CheckboxMenuItem statusBar;
 
 	String[] btnName = { "Undo", // 작업이전 상태로 되돌림
 			"n번째줄삭제", // 짝수줄을 삭제하는 기능
@@ -42,6 +52,7 @@ public class TextToolEx12 extends Frame implements WindowListener {
 	};
 
 	Button[] btn = new Button[btnName.length];
+	Button btnCopy = new Button("copy");
 
 	private final String CR_LF = System.getProperty("line.separator"); // 줄바꿈문자
 
@@ -124,7 +135,7 @@ public class TextToolEx12 extends Frame implements WindowListener {
 				prevText = curText;
 				Scanner s = new Scanner(curText);
 
-				for (int i = 0; s.hasNextLine(); i++) {
+				while (s.hasNextLine()) {
 					String line = s.nextLine().trim();
 					sb.append(line).append(CR_LF);
 				}
@@ -140,7 +151,7 @@ public class TextToolEx12 extends Frame implements WindowListener {
 				prevText = curText;
 				Scanner s = new Scanner(curText);
 
-				for (int i = 0; s.hasNextLine(); i++) {
+				while (s.hasNextLine()) {
 					String line = s.nextLine();
 					if (line.trim().length() > 0)
 						sb.append(line).append(CR_LF);
@@ -161,7 +172,7 @@ public class TextToolEx12 extends Frame implements WindowListener {
 				String postfix = tfParam2.getText();
 				Scanner s = new Scanner(curText);
 
-				for (int i = 0; s.hasNextLine(); i++) {
+				while (s.hasNextLine()) {
 					String line = s.nextLine();
 					sb.append(prefix);
 					sb.append(line);
@@ -182,7 +193,7 @@ public class TextToolEx12 extends Frame implements WindowListener {
 				int to = tfParam2.getText().length();
 				Scanner s = new Scanner(curText);
 
-				for (int i = 0; s.hasNextLine(); i++) {
+				while (s.hasNextLine()) {
 					String line = s.nextLine();
 					if (line.length() < from + to)
 						return;
@@ -204,7 +215,7 @@ public class TextToolEx12 extends Frame implements WindowListener {
 				String param2 = tfParam2.getText();
 				Scanner s = new Scanner(curText);
 
-				for (int i = 0; s.hasNextLine(); i++) {
+				while (s.hasNextLine()) {
 					String line = s.nextLine();
 					if (!option.getState()) {
 						int from = line.indexOf(param1);
@@ -266,8 +277,7 @@ public class TextToolEx12 extends Frame implements WindowListener {
 		});
 
 		btn[n++].addActionListener(new ActionListener() { // distinct2 - 중복 라인 제거 + 카운트
-			
-			//distinct2'버튼 - 옵션이 체크되어 있으면, 내림차순정렬
+
 			public void actionPerformed(ActionEvent ae) {
 				String curText = ta.getText();
 				StringBuffer sb = new StringBuffer(curText.length());
@@ -275,35 +285,33 @@ public class TextToolEx12 extends Frame implements WindowListener {
 				prevText = curText;
 
 				Scanner s = new Scanner(curText);
-				TreeMap map = new TreeMap();
+				TreeMap map;
+				// 오름차순 정렬
+				if(!option.getState()) {
+					map = new TreeMap();
+				//옵션이 체크되어 있으면, 내림차순 정렬
+				}else {
+					map = new TreeMap(Collections.reverseOrder());
+				}
 
 				String delimiter = tfParam1.getText();
 
-				if (delimiter.length() == 0)
-					delimiter = ",";
+				if (delimiter.length() == 0) delimiter = ",";
 
-				for (int i = 0; s.hasNextLine(); i++) {
+				while (s.hasNextLine()) {
 					String line = s.nextLine();
 
 					if (map.containsKey(line)) {
 						Integer value = (Integer) map.get(line);
 						map.put(line, new Integer(value.intValue() + 1));
-					} else {
+					} else
 						map.put(line, new Integer(1));
-					}
 				}
-
 				Iterator it = map.entrySet().iterator();
-
-				while (it.hasNext()) {
+				while(it.hasNext()) {
 					Map.Entry entry = (Map.Entry) it.next();
-
 					int value = ((Integer) entry.getValue()).intValue();
-
-					sb.append(entry.getKey());
-					sb.append(delimiter);
-					sb.append(value);
-					sb.append(CR_LF);
+					sb.append(entry.getKey()).append(delimiter).append(value).append(CR_LF);
 				}
 
 				ta.setText(sb.toString());
@@ -315,7 +323,6 @@ public class TextToolEx12 extends Frame implements WindowListener {
 			public void actionPerformed(ActionEvent ae) {
 				String curText = ta.getText();
 				StringBuffer sb = new StringBuffer(curText.length());
-
 				prevText = curText;
 
 				String pattern = tfParam1.getText();
@@ -323,19 +330,18 @@ public class TextToolEx12 extends Frame implements WindowListener {
 
 				if (delimiter.length() == 0)
 					delimiter = ",";
-
 				Scanner s = new Scanner(curText);
 
-				for (int i = 0; s.hasNextLine(); i++) {
+				while(s.hasNext()) {
 					String line = s.nextLine();
 
 					String[] tokens = line.split(delimiter);
 
-					sb.append(MessageFormat.format(pattern, tokens));
-					sb.append(CR_LF);
+					sb.append(MessageFormat.format(pattern, tokens)).append(CR_LF);
 				}
 
 				ta.setText(sb.toString());
+				s.close();
 			}
 		});
 
@@ -365,6 +371,7 @@ public class TextToolEx12 extends Frame implements WindowListener {
 				}
 				// * 4. sb의 내용을 TextArea에 보여준다.
 				ta.setText(sb.toString());
+				s.close();
 			}
 		});
 
@@ -377,6 +384,17 @@ public class TextToolEx12 extends Frame implements WindowListener {
 
 	public TextToolEx12(String title) {
 		super(title);
+		
+		mb = new MenuBar();
+		mFile = new Menu("File");
+		mCopy = new Menu("Copy");
+		mView = new Menu("View");
+		mHelp = new Menu("Help");
+		mNew = new MenuItem("New File");
+		mOpen = new MenuItem("Open File");
+		mExit = new MenuItem("Exit");
+		statusBar = new CheckboxMenuItem("StatusBar");
+		
 		option = new Checkbox("Option", false);
 		lb1 = new Label("param1:", Label.RIGHT);
 		lb2 = new Label("param2:", Label.RIGHT);
@@ -387,16 +405,26 @@ public class TextToolEx12 extends Frame implements WindowListener {
 		pNorth = new Panel();
 		pSouth = new Panel();
 
-		for (int i = 0; i < btn.length; i++) {
+		for (int i = 0; i < btn.length; i++) 
 			btn[i] = new Button(btnName[i]);
-		}
-
+		
+		mFile.add(mNew);
+		mFile.add(mOpen);
+		mFile.addSeparator();
+		mFile.add(mExit);
+		mView.add(statusBar);
+		
+		mb.add(mFile); // 메뉴바에 메뉴 추가
+		mb.add(mView);
+		mb.add(mHelp);
+		
 		pNorth.setLayout(new FlowLayout());
 		pNorth.add(option);
 		pNorth.add(lb1);
 		pNorth.add(tfParam1);
 		pNorth.add(lb2);
 		pNorth.add(tfParam2);
+		pNorth.add(btnCopy);
 
 		pSouth.setLayout(new GridLayout(2, 10));
 
@@ -408,6 +436,7 @@ public class TextToolEx12 extends Frame implements WindowListener {
 		add(ta, "Center");
 		add(pSouth, "South");
 
+		setMenuBar(mb);
 		setBounds(100, 100, 600, 300);
 		ta.requestFocus();
 		registerEventHandler();
